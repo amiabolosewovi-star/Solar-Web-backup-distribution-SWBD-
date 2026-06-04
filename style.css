@@ -1,0 +1,285 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:url("background.jpg");
+    background-size:cover;
+}
+
+.container{
+    width:95%;
+    margin:auto;
+    padding:20px;
+}
+
+.page{
+    display:none;
+    background:#f3f3f3;
+    border-radius:25px;
+    padding:30px;
+    min-height:650px;
+    box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.page.active{
+    display:block;
+}
+.hero{
+    height:250px;
+    border-radius:25px;
+    background:linear-gradient(
+        135deg,
+        #1565c0,
+        #42a5f5
+    );
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.weather{
+    font-size:40px;
+    color:white;
+    font-weight:bold;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-around;
+    margin-top:30px;
+}
+
+.circle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:10px solid green;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+    font-weight:bold;
+}
+
+.batteries{
+    display:flex;
+    gap:20px;
+}
+
+.battery{
+    width:60px;
+    height:180px;
+    border-radius:30px;
+    background:#ddd;
+    position:relative;
+    overflow:hidden;
+}
+
+.battery div{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background:linear-gradient(red,yellow,lime);
+}
+
+.battery span{
+    position:absolute;
+    bottom:-25px;
+    width:100%;
+    text-align:center;
+}
+
+.global-battery{
+    width:180px;
+    height:220px;
+    border-radius:25px;
+    background:linear-gradient(#44ff00,#16b600);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+    font-weight:bold;
+}
+
+.large{
+    margin:auto;
+    margin-top:40px;
+}
+
+.revenus{
+    padding:30px;
+}
+
+.revenus h1{
+    margin-bottom:60px;
+}
+
+.money p{
+    margin-bottom:30px;
+    font-size:35px;
+    font-weight:bold;
+}
+
+.buttons{
+    margin-top:50px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.buttons button{
+    width:220px;
+    height:70px;
+    border:none;
+    border-radius:40px;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.grid-battery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.box{
+    height:150px;
+    border-radius:20px;
+    background:linear-gradient(#2fa6ff,#44ff00);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    color:white;
+    font-weight:bold;
+}
+
+.rooms{
+    margin-top:50px;
+}
+
+.room{
+    width:250px;
+    height:120px;
+    background:white;
+    border:1px solid #ddd;
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.on{
+    color:green;
+}
+
+.off{
+    color:red;
+}
+
+.bottom-nav{
+    margin-top:20px;
+    background:white;
+    border-radius:50px;
+    padding:15px;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+}
+
+.bottom-nav button{
+    width:70px;
+    height:70px;
+    border:none;
+    border-radius:50%;
+    font-size:30px;
+    cursor:pointer;
+}
+.network-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-top:50px;
+}
+
+.house-card{
+    width:220px;
+    padding:20px;
+    border-radius:25px;
+    background:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    text-align:center;
+}
+
+.surplus{
+    border-left:8px solid #00d26a;
+}
+
+.deficit{
+    border-left:8px solid #ff3d3d;
+}
+
+.energy-flow{
+    font-size:2rem;
+    font-weight:bold;
+    color:#00c853;
+}
+
+.transfer-btn{
+    display:block;
+    margin:50px auto;
+    padding:15px 40px;
+    border:none;
+    border-radius:30px;
+    background:#00e676;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+@media (max-width: 768px){
+
+    .stats{
+        flex-direction:column;
+        align-items:center;
+        gap:30px;
+    }
+
+    .network-container{
+        flex-direction:column;
+    }
+
+    .buttons{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .buttons button{
+        width:100%;
+    }
+
+    .bottom-nav{
+        gap:15px;
+    }
+
+    .room{
+        width:100%;
+    }
+
+    .house-card{
+        width:100%;
+    }
+
+    .global-battery{
+        width:140px;
+        height:180px;
+        font-size:40px;
+    }
+
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Solar Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PAGE 1 -->
+     <h1>SWBD - Solar Web Backup Distribution</h1>
+<p>
+Réseau intelligent de partage d'énergie solaire entre habitations.
+</p>
+    <section id="page1" class="page active">
+
+        <div class="hero">
+
+            <div class="weather">
+                ☀️ 40°C
+            </div>
+
+            <div class="graph">
+                <h4>20 000 CFA</h4>
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="economy">
+                <div class="circle">
+                    100%
+                </div>
+                <h3>Niveau d'économie</h3>
+            </div>
+
+            <div class="batteries">
+
+                <div class="battery">
+                    <div style="height:40%"></div>
+                    <span>40%</span>
+                </div>
+
+                <div class="battery">
+                    <div style="height:30%"></div>
+                    <span>30%</span>
+                </div>
+
+                <div class="battery">
+                    <div style="height:87%"></div>
+                    <span>87%</span>
+                </div>
+
+                <div class="battery">
+                    <div style="height:100%"></div>
+                    <span>100%</span>
+                </div>
+
+            </div>
+
+            <div class="global-battery">
+                90%
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 2 -->
+    <section id="page2" class="page">
+
+        <div class="revenus">
+
+            <h1>REVENUE : 500 FCFA/h</h1>
+
+            <div class="money">
+
+                <p>RJP : 13 500 FCFA</p>
+                <p>RMP : 46 500 FCFA</p>
+                <p>RJoP : 46 500 FCFA</p>
+
+            </div>
+
+            <h2>Total acquis : 62 625 FCFA</h2>
+
+            <div class="buttons">
+
+                <button>Retiré</button>
+                <button>Acheté</button>
+                <button>Vendre</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 3 -->
+     <section id="page3" class="page">
+
+    <h1>Réseau SWBD</h1>
+
+    <div class="network-container">
+
+        <div class="house-card surplus">
+            <h2>Maison A</h2>
+            <p>Batterie : 98%</p>
+            <p>Surplus : +5 kWh</p>
+        </div>
+
+        <div class="energy-flow">
+            ➜ 3 kWh
+        </div>
+
+        <div class="house-card deficit">
+            <h2>Maison B</h2>
+            <p>Batterie : 20%</p>
+            <p>Besoin : -3 kWh</p>
+        </div>
+
+    </div>
+
+    <button class="transfer-btn">
+        Redistribuer l'énergie
+    </button>
+
+</section>
+      <!-- PAGE 4 -->
+   <section id="page4" class="page">
+   <h1>Gestion domotique</h1>
+   <div class="rooms">
+       <div class="room on">ON<br>Room 2</div>
+       <div class="room on">ON<br>Room 3</div>
+       <div class="room off">OFF<br>Room 1</div>
+   </div>
+   <div class="global-battery">
+       90%
+   </div>
+</section>
+
+
+    <!-- MENU -->
+    <nav class="bottom-nav">
+
+        <button onclick="showPage('page1')">🏠</button>
+        <button onclick="showPage('page2')">💲</button>
+        <button onclick="showPage('page3')">🔋</button>
+        <button onclick="showPage('page4')">⚙️</button>
+
+    </nav>
+
+</div>
+
+</body>
+</html>
