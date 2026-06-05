@@ -1,0 +1,262 @@
+/* --- Charte Graphique Pure White & Neutres --- */
+:root {
+    --bg-main: #fcfcfd;
+    --bg-sidebar: #ffffff;
+    --bg-elements: #f4f4f5;
+    --text-dark: #09090b;
+    --text-muted: #71717a;
+    --border-light: #e4e4e7;
+    
+    /* Indicateurs d'état épurés */
+    --color-surplus: #10b981;
+    --color-deficit: #ef4444;
+    --color-transfer: #2563eb;
+}
+
+/* --- Style Général --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- Barre Latérale Pro --- */
+sidebar {
+    width: 390px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    z-index: 10;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.02);
+}
+
+.brand {
+    margin-bottom: 24px;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.brand p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+}
+
+/* Grille Métrique */
+.global-dashboard {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: var(--bg-main);
+}
+
+.metric-card.surplus-card { border-bottom: 3px solid var(--color-surplus); }
+.metric-card.deficit-card { border-bottom: 3px solid var(--color-deficit); }
+
+.metric-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+/* Monitoring Section Scrollable */
+.panel-section h3 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.list-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 20px;
+}
+
+.list-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.list-wrapper::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 10px;
+}
+
+/* Cartes des Stations */
+.station-item {
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.station-item:hover {
+    border-color: #a1a1aa;
+    transform: translateY(-1px);
+}
+
+.station-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge.surplus { background: #ecfdf5; color: var(--color-surplus); }
+.badge.manque { background: #fef2f2; color: var(--color-deficit); }
+.badge.equilibre { background: #f4f4f5; color: #52525b; }
+
+.station-details {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* Zone de Routage (Dispatch) */
+.dispatch-wrapper {
+    margin-top: auto;
+}
+
+.dispatch-box {
+    background: var(--bg-elements);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.dispatch-box label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.select-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    background: var(--bg-sidebar);
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    outline: none;
+    color: var(--text-dark);
+}
+
+.btn-dispatch {
+    width: 100%;
+    padding: 12px;
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-dispatch:hover { background: #27272a; }
+.btn-dispatch:disabled { background: #e4e4e7; color: #a1a1aa; cursor: not-allowed; }
+
+/* --- Cartographie --- */
+#map-container {
+    flex: 1;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Légende Suspendue */
+.map-legend {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: var(--bg-sidebar);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+    z-index: 1000;
+    border: 1px solid var(--border-light);
+    font-size: 0.75rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.legend-item:last-child { margin-bottom: 0; }
+.legend-divider { height: 1px; background: var(--border-light); margin: 10px 0; }
+
+.marker-guide { width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; display: inline-block; }
+.dot-surplus { background: var(--color-surplus); }
+.dot-deficit { background: var(--color-deficit); }
+.dot-house { background: #71717a; }
+
+.line-guide { width: 24px; height: 3px; margin-right: 10px; display: inline-block; }
+.backbone-line { background: #cbd5e1; }
+.house-line { border-bottom: 2px dashed #a1a1aa; height: 0; }
+
+/* ANIMATION FLUX ÉLECTRIQUE DYNAMIQUE (SVG Path Animation) */
+.cable-pulse-flow {
+    stroke-dasharray: 8, 12;
+    animation: electricityFlow 1s linear infinite;
+    filter: drop-shadow(0 0 6px var(--color-transfer));
+}
+
+@keyframes electricityFlow {
+    0% { stroke-dashoffset: 20; }
+    100% { stroke-dashoffset: 0; }
+}

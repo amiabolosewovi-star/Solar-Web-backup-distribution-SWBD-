@@ -1,162 +1,332 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Solar Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWBD – Solar Web Backup Distribution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="app-wrapper">
 
-<div class="container">
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="brand-icon">☀️</span>
+        <div>
+          <div class="brand-title">SWBD</div>
+          <div class="brand-sub">Solar Web Backup Distribution</div>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="live-dot"></span>
+        <span class="live-label">LIVE</span>
+      </div>
+    </header>
 
-    <!-- PAGE 1 -->
-     <h1>SWBD - Solar Web Backup Distribution</h1>
-<p>
-Réseau intelligent de partage d'énergie solaire entre habitations.
-</p>
-    <section id="page1" class="page active">
+    <!-- PAGES -->
+    <main class="pages-container" style="position:relative;">
+
+    <img src="resources/BG.jpg" alt="Background" class="background-image" >
+      <!-- ══════════════ PAGE 1 – DASHBOARD ══════════════ -->
+      <section id="page1" class="page active">
 
         <div class="hero">
-
-            <div class="weather">
-                ☀️ 40°C
+            <img src="resources/PANEL.png" alt="Hero Background" class="hero-bg">
+          <div class="hero-left">
+            <div class="weather-card">
+              <span class="sun-icon">☀️</span>
+              <span class="temp-text">39°c</span>
             </div>
-
-            <div class="graph">
-                <h4>20 000 CFA</h4>
+          </div>
+          <div class="hero-right">
+            <div class="hero-revenue">
+              <span class="rev-icon">🌿</span>
+              <span class="rev-amount">20 000 CFA</span>
             </div>
-
+            <div class="mini-chart" id="miniChart">
+              <canvas id="heroCanvas" width="300" height="80"></canvas>
+            </div>
+            <div class="hero-kw">
+              <div class="kw-item">
+                <span class="arrow-up">▲</span>
+                <span class="kw-val">12 kw/h</span>
+              </div>
+              <div class="kw-item">
+                <span class="arrow-down">▼</span>
+                <span class="kw-val">7  kw/h</span>
+              </div>
+            </div>
+          </div>
         </div>
 
+        <!-- Stats row -->
         <div class="stats">
 
-            <div class="economy">
-                <div class="circle">
-                    100%
-                </div>
-                <h3>Niveau d'économie</h3>
+          <!-- Économie circle -->
+          <div class="stat-block economy-block">
+            <div class="circle-wrap">
+              <svg class="circle-svg" viewBox="0 0 160 160">
+                <circle class="circle-bg" cx="80" cy="80" r="68"/>
+                <circle class="circle-fill" cx="80" cy="80" r="68" id="economyCircle"/>
+              </svg>
+              <div class="circle-inner">
+                <span class="circle-pct" id="economyPct">100%</span>
+              </div>
+              <div class="circle-dot" id="circDot"></div>
             </div>
+            <p class="stat-label">Niveau d'économie</p>
+          </div>
 
+          <!-- Batteries verticales -->
+          <div class="batteries-block">
             <div class="batteries">
-
-                <div class="battery">
-                    <div style="height:40%"></div>
-                    <span>40%</span>
+              <div class="battery-wrap">
+                <div class="battery-v">
+                  <div class="batt-cap"></div>
+                  <div class="batt-body">
+                    <div class="batt-fill" data-level="40" style="height:40%"></div>
+                  </div>
                 </div>
-
-                <div class="battery">
-                    <div style="height:30%"></div>
-                    <span>30%</span>
+                <span class="batt-pct">40%</span>
+              </div>
+              <div class="battery-wrap">
+                <div class="battery-v">
+                  <div class="batt-cap"></div>
+                  <div class="batt-body">
+                    <div class="batt-fill" data-level="30" style="height:30%"></div>
+                  </div>
                 </div>
-
-                <div class="battery">
-                    <div style="height:87%"></div>
-                    <span>87%</span>
+                <span class="batt-pct">30%</span>
+              </div>
+              <div class="battery-wrap">
+                <div class="battery-v">
+                  <div class="batt-cap"></div>
+                  <div class="batt-body">
+                    <div class="batt-fill" data-level="87" style="height:87%"></div>
+                  </div>
                 </div>
-
-                <div class="battery">
-                    <div style="height:100%"></div>
-                    <span>100%</span>
+                <span class="batt-pct">87%</span>
+              </div>
+              <div class="battery-wrap">
+                <div class="battery-v">
+                  <div class="batt-cap"></div>
+                  <div class="batt-body">
+                    <div class="batt-fill" data-level="100" style="height:100%"></div>
+                  </div>
                 </div>
+                <span class="batt-pct">100%</span>
+              </div>
+            </div>
+            <p class="stat-label">Niveau d'énergie en stock</p>
+          </div>
 
+          <!-- Batterie globale -->
+          <div class="global-batt-block">
+            <div class="global-battery" id="globalBatt">
+              <div class="gbatt-cap"></div>
+              <div class="gbatt-body">
+                <div class="gbatt-fill" id="gbattFill" style="height:90%">
+                  <span class="gbatt-pct" id="gbattPct">90%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════ PAGE 2 – REVENUS ══════════════ -->
+      <section id="page2" class="page">
+            
+        <div class="revenus-layout">
+
+          <div class="rev-left">
+            <div class="rev-header">REVENUE : <span class="rev-rate">500 fcfa /h</span></div>
+
+            <div class="rev-cards">
+              <div class="rev-card">
+                <div class="rev-card-label">Revenue Journalier Prévu</div>
+                <div class="rev-card-value green" id="rjp">46 500 fcfa</div>
+                <div class="rev-card-rate">REVENUE : <span>500 fcfa /h</span></div>
+                <button class="pill-btn yellow">acheté</button>
+              </div>
+              <div class="rev-card">
+                <div class="rev-card-label">Revenue Mensuel Prévu</div>
+                <div class="rev-card-value green" id="rmp">46 500 fcfa</div>
+                <button class="pill-btn green-btn">vendre</button>
+              </div>
+              <div class="rev-card total-card">
+                <div class="rev-card-label">totale accie :</div>
+                <div class="rev-card-value blue" id="totalRev">62 625 fcfa</div>
+                <button class="pill-btn blue-btn">retiré</button>
+              </div>
             </div>
 
-            <div class="global-battery">
-                90%
+            <div class="rev-kw-row">
+              <div class="kw-item"><span class="arrow-up">▲</span><span class="kw-val">12 kw/h</span></div>
+              <div class="kw-item"><span class="arrow-down">▼</span><span class="kw-val">7  kw/h</span></div>
+            </div>
+          </div>
+
+          <div class="rev-right">
+            <div class="chart-card">
+              <div class="chart-title-row">
+                <span class="chart-title">statut énergétique</span>
+                <div class="chart-legend">
+                  <span class="legend-dot red-dot"></span><span>consomation</span>
+                  <span class="legend-dot blue-dot"></span><span>revenue generé</span>
+                </div>
+              </div>
+              <canvas id="revenueChart" width="400" height="220"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ PAGE 3 – RÉSEAU SWBD ══════════════ -->
+      <section id="page3" class="page">
+        <div class="network-header">
+          <h2>Réseau SWBD</h2>
+          <div class="net-kw-row">
+            <div class="kw-item"><span class="arrow-up">▲</span><span class="kw-val">12 kw/h</span></div>
+            <div class="kw-item"><span class="arrow-down">▼</span><span class="kw-val">7 kw/h</span></div>
+          </div>
+        </div>
+
+        <div class="network-grid" id="networkGrid">
+          <!-- Généré par JS -->
+        </div>
+
+        <div class="network-flow-section">
+          <div class="global-batt-small">
+            <div class="gbatt-body">
+              <div class="gbatt-fill" style="height:90%">
+                <span class="gbatt-pct">90%</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arrow-section">
+            <div class="flow-chart-card">
+              <canvas id="flowChart" width="300" height="100"></canvas>
+            </div>
+            <div class="flow-kw-badge">3 kw/h</div>
+          </div>
+        </div>
+
+        <div class="network-houses">
+          <div class="house-card surplus">
+            <div class="house-icon">🏠</div>
+            <h3>Maison A</h3>
+            <p>Batterie : <strong>98%</strong></p>
+            <p class="surplus-tag">Surplus : +5 kWh</p>
+          </div>
+          <div class="energy-flow-arrow">
+            <div class="flow-line" id="flowLine"></div>
+            <span class="flow-kw-label">➜ 3 kWh</span>
+          </div>
+          <div class="house-card deficit">
+            <div class="house-icon">🏠</div>
+            <h3>Maison B</h3>
+            <p>Batterie : <strong>20%</strong></p>
+            <p class="deficit-tag">Besoin : -3 kWh</p>
+          </div>
+        </div>
+
+        <button class="transfer-btn" id="transferBtn" onclick="doTransfer()">
+          ⚡ Redistribuer l'énergie
+        </button>
+      </section>
+
+      <!-- ══════════════ PAGE 4 – DOMOTIQUE ══════════════ -->
+      <section id="page4" class="page">
+        <h2 class="page-title">Gestion domotique</h2>
+
+        <div class="domo-layout">
+          <div class="floor-plan">
+            <div class="floor-room room-topleft" id="roomBedroom">
+              <span class="room-status on">on</span>
+              <span class="room-name">room2</span>
+            </div>
+            <div class="floor-room room-topright" id="roomLiving">
+              <span class="room-status on">on</span>
+              <span class="room-name">room3</span>
+            </div>
+            <div class="floor-room room-bottomleft" id="roomKitchen">
+              <span class="room-status off">off</span>
+              <span class="room-name">room1</span>
+            </div>
+            <div class="floor-room room-bottomright" id="roomGarage">
+              <span class="room-status off">off</span>
+              <span class="room-name">room4</span>
+            </div>
+          </div>
+
+          <div class="domo-right">
+            <div class="domo-kw-row">
+              <div class="kw-item"><span class="arrow-up">▲</span><span class="kw-val">12 kw/h</span></div>
+              <div class="kw-item"><span class="arrow-down">▼</span><span class="kw-val">7 kw/h</span></div>
             </div>
 
-        </div>
-
-    </section>
-
-
-    <!-- PAGE 2 -->
-    <section id="page2" class="page">
-
-        <div class="revenus">
-
-            <h1>REVENUE : 500 FCFA/h</h1>
-
-            <div class="money">
-
-                <p>RJP : 13 500 FCFA</p>
-                <p>RMP : 46 500 FCFA</p>
-                <p>RJoP : 46 500 FCFA</p>
-
+            <div class="global-battery domo-batt" id="domoBatt">
+              <div class="gbatt-cap"></div>
+              <div class="gbatt-body">
+                <div class="gbatt-fill" style="height:90%">
+                  <span class="gbatt-pct">90%</span>
+                </div>
+              </div>
             </div>
 
-            <h2>Total acquis : 62 625 FCFA</h2>
-
-            <div class="buttons">
-
-                <button>Retiré</button>
-                <button>Acheté</button>
-                <button>Vendre</button>
-
-            </div>
-
+            <div class="flow-kw-badge large-badge">3 kw/h</div>
+          </div>
         </div>
 
-    </section>
-
-
-    <!-- PAGE 3 -->
-     <section id="page3" class="page">
-
-    <h1>Réseau SWBD</h1>
-
-    <div class="network-container">
-
-        <div class="house-card surplus">
-            <h2>Maison A</h2>
-            <p>Batterie : 98%</p>
-            <p>Surplus : +5 kWh</p>
+        <div class="domo-modes">
+          <button class="mode-btn eco active-mode" onclick="setMode('eco',this)">
+            <span class="mode-icon">♻️</span>
+            <span>Économie maxi</span>
+          </button>
+          <button class="mode-btn charge" onclick="setMode('charge',this)">
+            <span class="mode-icon">🔋</span>
+            <span>Charge prioritaire</span>
+          </button>
+          <button class="mode-btn perf" onclick="setMode('perf',this)">
+            <span class="mode-icon">⚡</span>
+            <span>Performance maxi</span>
+          </button>
         </div>
+      </section>
 
-        <div class="energy-flow">
-            ➜ 3 kWh
-        </div>
+    </main>
 
-        <div class="house-card deficit">
-            <h2>Maison B</h2>
-            <p>Batterie : 20%</p>
-            <p>Besoin : -3 kWh</p>
-        </div>
-
-    </div>
-
-    <button class="transfer-btn">
-        Redistribuer l'énergie
-    </button>
-
-</section>
-      <!-- PAGE 4 -->
-   <section id="page4" class="page">
-   <h1>Gestion domotique</h1>
-   <div class="rooms">
-       <div class="room on">ON<br>Room 2</div>
-       <div class="room on">ON<br>Room 3</div>
-       <div class="room off">OFF<br>Room 1</div>
-   </div>
-   <div class="global-battery">
-       90%
-   </div>
-</section>
-
-
-    <!-- MENU -->
+    <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
-
-        <button onclick="showPage('page1')">🏠</button>
-        <button onclick="showPage('page2')">💲</button>
-        <button onclick="showPage('page3')">🔋</button>
-        <button onclick="showPage('page4')">⚙️</button>
-
+      <button class="nav-btn active" onclick="showPage('page1',this)" id="nav1">
+        <span class="nav-icon">
+            <img src="resources/icon 1.png" alt="Background-icon" class="icon" >
+        </span>
+      </button>
+      <button class="nav-btn" onclick="showPage('page2',this)" id="nav2">
+        <span class="nav-icon">
+            <img src="resources/icon 2.png" alt="Background-icon" class="icon" >
+        </span>
+      </button>
+      <button class="nav-btn" onclick="showPage('page3',this)" id="nav3">
+        <span class="nav-icon">
+            <img src="resources/icon 3.png" alt="Background-icon" class="icon" >
+        </span>
+      </button>
+      <button class="nav-btn" onclick="showPage('page4',this)" id="nav4">
+        <span class="nav-icon">
+            <img src="resources/icon 4.png" alt="Background-icon" class="icon" >
+        </span>
+      </button>
     </nav>
 
-</div>
+  </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
