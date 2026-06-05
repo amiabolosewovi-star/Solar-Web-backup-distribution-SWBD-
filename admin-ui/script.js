@@ -11,32 +11,34 @@ L.control.zoom({ position: 'topright' }).addTo(map);
 // Couches d'affichage Leaflet dédiées
 const networkLayerGroup = L.layerGroup().addTo(map);
 const animationLayerGroup = L.layerGroup().addTo(map);
+let selectedSourceId = '';
+let selectedTargetId = '';
 
 // 2. Base de données : 74 Stations interconnectées réparties dans Lomé (Quartiers clés et extensions)
 const stationsDataset = [
-    { id: "ST_KOD", name: "Hub Kodjoviakopé", lat: 6.1210, lon: 1.2050 },
-    { id: "ST_GMR", name: "Station Grand Marché", lat: 6.1242, lon: 1.2274 },
-    { id: "ST_BEB", name: "Relais Bè Bassin", lat: 6.1350, lon: 1.2380 },
-    { id: "ST_TOK", name: "Station Tokoin Central", lat: 6.1480, lon: 1.2180 },
-    { id: "ST_HED", name: "Hub Hédzranawoé", lat: 6.1620, lon: 1.2400 },
-    { id: "ST_KEG", name: "Station Kégué Complexe", lat: 6.1750, lon: 1.2550 },
-    { id: "ST_AGO", name: "Relais Agoè Assiyéye", lat: 6.2050, lon: 1.2080 },
-    { id: "ST_ADI", name: "Station Adidogomé", lat: 6.1700, lon: 1.1700 },
-    { id: "ST_AVE", name: "Relais Avédji Carrefour", lat: 6.1880, lon: 1.1870 },
-    { id: "ST_AER", name: "Hub Aéroport International", lat: 6.1660, lon: 1.2610 },
-    { id: "ST_DJI", name: "Relais Djidjolé", lat: 6.1600, lon: 1.1950 },
-    { id: "ST_TOT", name: "Station Totsi Fontaine", lat: 6.1780, lon: 1.1920 },
-    { id: "ST_MEN", name: "Relais Menwonouvo", lat: 6.1550, lon: 1.2100 },
-    { id: "ST_ZOE", name: "Station Zoé Industrial", lat: 6.1900, lon: 1.2300 },
-    { id: "ST_GLA", name: "Hub Glanou Central", lat: 6.1400, lon: 1.1950 },
-    { id: "ST_BEL", name: "Relais Bélèkpè", lat: 6.2100, lon: 1.2200 },
-    { id: "ST_WIY", name: "Station Wiyi Commerce", lat: 6.1300, lon: 1.2450 },
-    { id: "ST_KOL", name: "Hub Kolokopé Technopole", lat: 6.1650, lon: 1.1800 },
-    { id: "ST_PEL", name: "Relais Pelipeli", lat: 6.1800, lon: 1.2000 },
-    { id: "ST_NUN", name: "Station Nyunuvé Quartier", lat: 6.1450, lon: 1.2600 },
-    { id: "ST_AKO", name: "Relais Akodessèwè", lat: 6.2000, lon: 1.1900 },
-    { id: "ST_YEC", name: "Hub Yéchakpa Est", lat: 6.1550, lon: 1.1750 },
-    { id: "ST_KAO", name: "Station Kaolè Suburb", lat: 6.1900, lon: 1.1650 }
+    { id: "ST_KOD", name: "Hub Kodjoviakopé", location: "Kodjoviakopé", lat: 6.1210, lon: 1.2050 },
+    { id: "ST_GMR", name: "Station Grand Marché", location: "Grand Marché", lat: 6.1242, lon: 1.2274 },
+    { id: "ST_BEB", name: "Relais Bè Bassin", location: "Bè Bassin", lat: 6.1350, lon: 1.2380 },
+    { id: "ST_TOK", name: "Station Tokoin Central", location: "Tokoin Central", lat: 6.1480, lon: 1.2180 },
+    { id: "ST_HED", name: "Hub Hédzranawoé", location: "Hédzranawoé", lat: 6.1620, lon: 1.2400 },
+    { id: "ST_KEG", name: "Station Kégué Complexe", location: "Kégué", lat: 6.1750, lon: 1.2550 },
+    { id: "ST_AGO", name: "Relais Agoè Assiyéye", location: "Agoè Assiyéye", lat: 6.2050, lon: 1.2080 },
+    { id: "ST_ADI", name: "Station Adidogomé", location: "Adidogomé", lat: 6.1700, lon: 1.1700 },
+    { id: "ST_AVE", name: "Relais Avédji Carrefour", location: "Avédji", lat: 6.1880, lon: 1.1870 },
+    { id: "ST_AER", name: "Hub Aéroport International", location: "Aéroport", lat: 6.1660, lon: 1.2610 },
+    { id: "ST_DJI", name: "Relais Djidjolé", location: "Djidjolé", lat: 6.1600, lon: 1.1950 },
+    { id: "ST_TOT", name: "Station Totsi Fontaine", location: "Totsi", lat: 6.1780, lon: 1.1920 },
+    { id: "ST_MEN", name: "Relais Menwonouvo", location: "Menwonouvo", lat: 6.1550, lon: 1.2100 },
+    { id: "ST_ZOE", name: "Station Zoé Industrial", location: "Zoé Industrial", lat: 6.1900, lon: 1.2300 },
+    { id: "ST_GLA", name: "Hub Glanou Central", location: "Glanou", lat: 6.1400, lon: 1.1950 },
+    { id: "ST_BEL", name: "Relais Bélèkpè", location: "Bélèkpè", lat: 6.2100, lon: 1.2200 },
+    { id: "ST_WIY", name: "Station Wiyi Commerce", location: "Wiyi", lat: 6.1300, lon: 1.2450 },
+    { id: "ST_KOL", name: "Hub Kolokopé Technopole", location: "Kolokopé", lat: 6.1650, lon: 1.1800 },
+    { id: "ST_PEL", name: "Relais Pelipeli", location: "Pelipeli", lat: 6.1800, lon: 1.2000 },
+    { id: "ST_NUN", name: "Station Nyunuvé Quartier", location: "Nyunuvé", lat: 6.1450, lon: 1.2600 },
+    { id: "ST_AKO", name: "Relais Akodessèwè", location: "Akodessèwè", lat: 6.2000, lon: 1.1900 },
+    { id: "ST_YEC", name: "Hub Yéchakpa Est", location: "Yéchakpa", lat: 6.1550, lon: 1.1750 },
+    { id: "ST_KAO", name: "Station Kaolè Suburb", location: "Kaolè", lat: 6.1900, lon: 1.1650 }
 ];
 
 function nombreAleatoire(min, max) {
@@ -50,6 +52,7 @@ function genererStationsSupplementaires(count) {
         stationsDataset.push({
             id: `ST_EXT${String(i).padStart(2, '0')}`,
             name: `Station Extra ${i}`,
+            location: `Quartier Extra ${i}`,
             lat,
             lon
         });
@@ -88,6 +91,19 @@ function initialiserChargesAleatoires() {
     if (!hasNeg) {
         stationsDataset[1].load = -nombreAleatoire(60, 220);
     }
+}
+
+function choisirStation(id, type) {
+    if (type === 'source') {
+        selectedSourceId = id;
+    } else if (type === 'target') {
+        selectedTargetId = id;
+    }
+    const sourceSelect = document.getElementById('source-station');
+    const targetSelect = document.getElementById('target-station');
+    if (sourceSelect) sourceSelect.value = selectedSourceId;
+    if (targetSelect) targetSelect.value = selectedTargetId;
+    rafraichirSysteme();
 }
 
 genererStationsSupplementaires(50);
@@ -138,8 +154,8 @@ function rafraichirSysteme() {
     const selectCible = document.getElementById('target-station');
 
     // Sauvegarde des sélections courantes pour l'UX
-    const archiveSource = selectSource.value;
-    const archiveCible = selectCible.value;
+    const archiveSource = selectedSourceId || selectSource.value;
+    const archiveCible = selectedTargetId || selectCible.value;
 
     domListe.innerHTML = "";
     selectSource.innerHTML = "<option value=''>Choisir une source...</option>";
@@ -174,7 +190,14 @@ function rafraichirSysteme() {
             fillOpacity: 0.95
         }).addTo(networkLayerGroup);
 
-        marqueurStation.bindPopup(`<b>${station.name}</b><br>Statut: ${libelleEtat}<br>Solde Énergétique: ${station.load > 0 ? '+' : ''}${station.load} kWh`);
+        marqueurStation.bindPopup(`<b>${station.name}</b><br>Localisation: ${station.location || ''}<br>Statut: ${libelleEtat}<br>Solde Énergétique: ${station.load > 0 ? '+' : ''}${station.load} kWh<br><small>Cliquez pour sélectionner cette station comme ${station.load > 0 ? 'source' : station.load < 0 ? 'cible' : 'station neutre'}.</small>`);
+        marqueurStation.on('click', () => {
+            if (station.load > 0) {
+                choisirStation(station.id, 'source');
+            } else if (station.load < 0) {
+                choisirStation(station.id, 'target');
+            }
+        });
 
         // B. CARTOGRAPHIE : Abonnés / Maisons connectées en Basse Tension (Dashed)
         station.houses.forEach(house => {
@@ -197,13 +220,24 @@ function rafraichirSysteme() {
         // C. INTERFACE SIDEBAR : Éléments HTML
         const blocStation = document.createElement('div');
         blocStation.className = 'station-item';
-        blocStation.onclick = () => map.setView([station.lat, station.lon], 15);
+        if (station.id === selectedSourceId) blocStation.classList.add('selected-source');
+        if (station.id === selectedTargetId) blocStation.classList.add('selected-target');
+        blocStation.title = station.load > 0 ? 'Cliquez pour sélectionner cette station comme source' : station.load < 0 ? 'Cliquez pour sélectionner cette station comme cible' : 'Station équilibrée';
+        blocStation.onclick = () => {
+            map.setView([station.lat, station.lon], 15);
+            if (station.load > 0) {
+                choisirStation(station.id, 'source');
+            } else if (station.load < 0) {
+                choisirStation(station.id, 'target');
+            }
+        };
         blocStation.innerHTML = `
             <div class="station-header">
                 <span>${station.name}</span>
                 <span class="badge ${classeEtat}">${libelleEtat}</span>
             </div>
             <div class="station-details">
+                Localisation : <b>${station.location || ''}</b><br>
                 Bilan actuel : <b style="color:${codeCouleur}">${station.load > 0 ? '+' : ''}${station.load} kWh</b> | ${station.houses.length} Habitations rattachées
             </div>
         `;
@@ -224,8 +258,10 @@ function rafraichirSysteme() {
     });
 
     // Restauration des sélections si toujours valides après mise à jour
-    if (archiveSource) selectSource.value = archiveSource;
-    if (archiveCible) selectCible.value = archiveCible;
+    if (archiveSource && Array.from(selectSource.options).some(o => o.value === archiveSource)) selectSource.value = archiveSource;
+    if (archiveCible && Array.from(selectCible.options).some(o => o.value === archiveCible)) selectCible.value = archiveCible;
+    selectedSourceId = selectSource.value;
+    selectedTargetId = selectCible.value;
 
     // Actualisation du bandeau de contrôle analytique
     document.getElementById('global-surplus').textContent = `+${cumulSurplus} kWh`;
@@ -284,5 +320,34 @@ function executerTransfert() {
     }, 1800);
 }
 
+function demarrerApplication() {
+    rafraichirSysteme();
+
+    const boutonAction = document.getElementById('action-btn');
+    if (boutonAction) {
+        boutonAction.addEventListener('click', executerTransfert);
+    }
+
+    const sourceSelect = document.getElementById('source-station');
+    const targetSelect = document.getElementById('target-station');
+    if (sourceSelect) {
+        sourceSelect.addEventListener('change', () => {
+            selectedSourceId = sourceSelect.value;
+            rafraichirSysteme();
+        });
+    }
+    if (targetSelect) {
+        targetSelect.addEventListener('change', () => {
+            selectedTargetId = targetSelect.value;
+            rafraichirSysteme();
+        });
+    }
+
+    setInterval(() => {
+        mettreAJourChargesDynamiques();
+        rafraichirSysteme();
+    }, 7000);
+}
+
 // Démarrage de l'application
-window.onload = rafraichirSysteme;
+window.onload = demarrerApplication;
