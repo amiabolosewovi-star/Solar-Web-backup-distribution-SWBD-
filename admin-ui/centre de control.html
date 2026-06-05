@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWBD Hub - Supervision Lomé</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <sidebar>
+        <div class="brand">
+            <h1>SWBD Control Center</h1>
+            <p>Smart Grid Distribution • Lomé</p>
+        </div>
+
+        <div class="global-dashboard">
+            <div class="metric-card surplus-card">
+                <span class="metric-label">Réserve Totale</span>
+                <span class="metric-value" id="global-surplus">+0 kWh</span>
+            </div>
+            <div class="metric-card deficit-card">
+                <span class="metric-label">Déficit Total</span>
+                <span class="metric-value" id="global-deficit">0 kWh</span>
+            </div>
+        </div>
+
+        <div class="panel-section list-wrapper">
+            <h3>Statut des Stations en Temps Réel</h3>
+            <div id="stations-list"></div>
+        </div>
+
+        <div class="panel-section dispatch-wrapper">
+            <h3>Routage Énergétique</h3>
+            <div class="dispatch-box">
+                <label for="source-station">Injecteur (Surplus)</label>
+                <select id="source-station" class="select-input"></select>
+
+                <label for="target-station">Récepteur (En Manque)</label>
+                <select id="target-station" class="select-input"></select>
+
+                <button class="btn-dispatch" id="action-btn" onclick="executerTransfert()">
+                    Initier la redistribution
+                </button>
+            </div>
+        </div>
+    </sidebar>
+
+    <div id="map-container">
+        <div id="map"></div>
+        
+        <div class="map-legend">
+            <div class="legend-item"><span class="line-guide backbone-line"></span> Liaison Inter-Stations (HT)</div>
+            <div class="legend-item"><span class="line-guide house-line"></span> Distribution Habitations (BT)</div>
+            <div class="legend-divider"></div>
+            <div class="legend-item"><span class="marker-guide dot-surplus"></span> Station en Surplus</div>
+            <div class="legend-item"><span class="marker-guide dot-deficit"></span> Station en Manque</div>
+            <div class="legend-item"><span class="marker-guide dot-house"></span> Maison rattachée</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

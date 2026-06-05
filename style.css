@@ -101,6 +101,7 @@ body {
 .pages-container { position:relative; }
 
 .page {
+
     display:none;
     background: rgba(255, 255, 255, 0.551);
     backdrop-filter: blur(18px);
