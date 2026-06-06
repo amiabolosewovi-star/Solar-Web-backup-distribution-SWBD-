@@ -6,7 +6,7 @@ SWBD (Solar Web Backup Distribution) est un réseau intelligent de partage d'én
 ║   SWBD — Solar Web Backup Distribution                                       ║
 ║   Réseau intelligent de distribution d'énergie solaire pair-à-pair           ║
 ║   Lomé, République Togolaise                                                 ║
-║   Version 1.0 — Juin 2026                                                   ║
+║   Version 1.0 — Juin 2026                                                    ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
