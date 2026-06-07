@@ -348,12 +348,8 @@ SWBD (Solar Web Backup Distribution) est un réseau intelligent de partage d'én
 
   Poste                   Profil                  Responsabilités
   ─────────────────────────────────────────────────────────────────────
-  Directeur technique     Ingénieur électrique    Architecture, installations
-  Développeur full-stack  Dev web/IoT             Plateforme logicielle, API
-  Ingénieur IoT           Électronique embarquée  Smart meters, LoRaWAN
-  Resp. communautaire     Travail social          Relations membres, adoption
-  Directeur financier     Comptabilité OHADA      Coopérative, Mobile Money
-  Conseiller juridique    Avocat énergie          Régulation, ARSE, contrats
+  jordankpetonkou9-afk   dev-full stac           crateur de l'interface admin
+                        
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
