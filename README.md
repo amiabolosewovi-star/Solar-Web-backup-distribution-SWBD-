@@ -348,8 +348,9 @@ SWBD (Solar Web Backup Distribution) est un réseau intelligent de partage d'én
 
   Poste                   Profil                  Responsabilités
   ─────────────────────────────────────────────────────────────────────
-  jordankpetonkou9-afk   dev-full stac           crateur de l'interface admin
-                        
+  jordankpetonkou9-afk   dev-full stack          crateur de l'interface admin
+  amiabolosewovi-star    dev-full stack          createur de línterfacce user
+  
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
